@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart, Text, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, CartesianAxis } from 'recharts';
+import { BarChart, Text, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import useFetchUserActivity from "../../hooks/useFetchUserActivity";
 
 interface UserActivityReturn {

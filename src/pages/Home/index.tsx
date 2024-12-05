@@ -10,6 +10,7 @@ import useFetchUserActivity from "../../hooks/useFetchUserActivity";
 import useFetchAverageSessions from "../../hooks/useFetchAverageSessions";
 import useFetchUserPerformance from "../../hooks/useFetchUserPerformance";
 import DailyActivity from "../../components/DailyActivity";
+import AverageSession from "../../components/AverageSession/index.tsx";
 
 const Home: React.FC = () => {
   const {userId} = useParams();
@@ -47,6 +48,7 @@ const Home: React.FC = () => {
           <p className="text-[18px] font-regular">Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
         </header>
         <DailyActivity userId={userId as string} />
+        <AverageSession userId={userId as string} />
       </main>
     </div>
   );
