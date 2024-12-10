@@ -29,7 +29,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ payload }) => {
   return null;
 };
 
-const DailyActivity: React.FC<DailyActivityProps> = ({userId}) => {
+const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId}) => {
   const { userActivity, loading, error } = useFetchUserActivity(userId);
   
   if (loading) {
@@ -87,4 +87,4 @@ const DailyActivity: React.FC<DailyActivityProps> = ({userId}) => {
   );
 };
 
-export default DailyActivity;
+export default DailyActivityBarPlot;

@@ -4,12 +4,18 @@ import { useEffect, useState } from 'react';
 export interface UserPerformance {
   data: {
     userId: number;
-    kind: string;
+    kind: string[];
     data: {
       value: number;
       kind: number;
     }[];
   }
+}
+
+export interface UserPerformancesReturn {
+  userPerformance: UserPerformance | null;
+  loading: boolean;
+  error: Error | null;
 }
 
 const useFetchUserPerformance = (id: string) => {
@@ -52,7 +58,7 @@ const useFetchUserPerformance = (id: string) => {
 
   useEffect(() => {
     fetchUserPerformance(id);
-  })
+  }, [id]);
 
   return { userPerformance, loading, error};
 };

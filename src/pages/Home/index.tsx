@@ -6,28 +6,17 @@ import yogaLogo from "../../assets/yogaLogo.svg";
 import swimmingLogo from "../../assets/swimmingLogo.svg";
 import cyclismLogo from "../../assets/cyclismLogo.svg";
 import musculationLogo from "../../assets/musculationLogo.svg";
-import useFetchUserActivity from "../../hooks/useFetchUserActivity";
-import useFetchAverageSessions from "../../hooks/useFetchAverageSessions";
-import useFetchUserPerformance from "../../hooks/useFetchUserPerformance";
-import DailyActivity from "../../components/DailyActivity";
-import AverageSession from "../../components/AverageSession/index.tsx";
+import DailyActivityBarPlot from "../../components/DailyActivityBarPlot";
+import AverageSessionLineChart from "../../components/AverageSessionLineChart";
+import PerformancesRadarChart from "../../components/PerformancesRadarChart";
 
 const Home: React.FC = () => {
   const {userId} = useParams();
-  console.log(typeof userId);
   const fetchedUserData = useFetchUserData(userId as string);
   const { userData } = fetchedUserData;
   const { data } = userData || {};
   const { id, userInfos, todayScore, score, keyData } = data || {};
   console.log(userInfos?.firstName);
-
-  const fetchedUserActivity = useFetchUserActivity(userId as string);
-  const { userActivity } = fetchedUserActivity;
-  const { sessions } = userActivity?.data || {};
-  console.log(sessions);
-
-  const fetchedUserAverageSessions = useFetchAverageSessions(userId as string);
-  const fetchedUserPerformance = useFetchUserPerformance(userId as string);
 
   return (
     <div className="flex">
@@ -42,13 +31,27 @@ const Home: React.FC = () => {
       </aside>
       <main className="flex-1 pt-[68px] pl-[107px] pr-[90px]">
         <header className="font-roboto flex flex-col justify-between h-[89px] gap-[40px] mb-[77px]">
+          <h1 className="sr-only">Page d'accueil de {userInfos?.firstName + " " + userInfos?.lastName}</h1>
           <p className="text-[48px] font-medium">
             Bonjour <span className="text-primary">{userInfos?.firstName}</span>
           </p>
           <p className="text-[18px] font-regular">Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
         </header>
-        <DailyActivity userId={userId as string} />
-        <AverageSession userId={userId as string} />
+
+        <div className="grid grid-cols-4 grid-rows-4">
+          <div className="col-start-1 col-span-3 row-span-2">
+            <DailyActivityBarPlot userId={userId as string} />
+          </div>
+
+          <div className="col-span-1 row-start-3 row-span-2 rounded-[5px]">        
+            <AverageSessionLineChart userId={userId as string} />
+          </div>
+          <div className="col-start-2 col-span-1 row-span-2 h-[263px] w-[258px] rounded-[5px] bg-[#282D30] flex flex-col justify-center items-center">
+            <PerformancesRadarChart userId={userId as string} />
+          </div>
+        </div>
+
+        
       </main>
     </div>
   );
