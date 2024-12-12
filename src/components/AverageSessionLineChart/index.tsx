@@ -7,7 +7,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  // Area,
   ReferenceArea,
 } from "recharts";
 import useFetchAverageSessions from "../../hooks/useFetchAverageSessions";
@@ -21,19 +20,13 @@ interface UserAverageSessionsReturn {
   sessionLength: number;
 }
 
-interface averageSessions {
-  day: number;
-  sessionLength: number;
-}
-
-// interface CustomTooltipProps {
-//   active?: boolean;
-//   payload?: {
-//     day: number;
-//     sessionLength: number;
-//   }[];
-//   setActiveDot: (activeDotData: averageSessions) => void;
-// }
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: {
+    value: number;
+  }[] | null;
+  label?: string;
+} 
 
 const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId}) => {
   const { userAverageSessions, loading, error } = useFetchAverageSessions(userId);
@@ -58,24 +51,19 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId}) => {
     });
   });
 
-  const CustomTooltip: React.FC<averageSessions> = (/*{ active, payload }*/ activeDotData) => {
-    if (/*active && payload && payload.length*/ activeDotData) {
-      // setActiveDot(payload[0]);
+  const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const day = label;
+
+      setActiveDay(day as string);
       return (
         <div className="custom-tooltip bg-quaternary p-[17px]">
-          <p className="desc text-secondary text-[8px]">{`${/*payload[0].sessionLength*/activeDotData?.sessionLength} min`}</p>
+          <p className="desc text-secondary text-[8px]">{`${payload[0].value} min`}</p>
         </div>
       );
     }
   
     return null;
-  };
-
-  const handleMouseMove = (state: MouseEvent) => {
-    const activeItem = ;
-    if (e.active && e.payload.length) {
-      setActiveDay(e.payload[0]);
-    }
   };
 
   const handleMouseLeave = () => {
@@ -93,38 +81,32 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId}) => {
         left: 20,
         bottom: 5,
       }}
-      onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <CartesianGrid strokeDasharray="3 3" fill="#E60000" vertical={false} horizontal={false} />
-      <XAxis dataKey="day" tickLine={false} tickMargin={-32} padding={{ left: 14, right: 14 }} tick={{fill: '#FFFFFF', fillOpacity: 0.5}} />
+      <XAxis dataKey="day" /*tickLine={false} tickMargin={-32} padding={{ left: 14, right: 14 }} tick={{fill: '#FFFFFF', fillOpacity: 0.5}}*/ />
       <YAxis hide={true} />
-      <Tooltip
-        
-        content={<CustomTooltip activeDotData={activeDotData} />} cursor={false}  />
-      {/* <Area
-        type="monotone"
-        dataKey={"sessionLength"}
-        stroke="#E69999"
-      /> */}
+      <Tooltip /*content={<CustomTooltip />} cursor={false}*/  />
       <Line
         type="monotone"
         dataKey="sessionLength"
-        fill="#FFF"
+        // fill="#FFF"
         stroke="#FFF"
-        fillOpacity={0.5}
+        // fillOpacity={0.5}
         dot={false}
-        activeDot={{ r: 4, strokeWidth: 8, strokeOpacity: 0.5}}
+        // activeDot={{ r: 4, strokeWidth: 8, strokeOpacity: 0.5}}
         strokeWidth={2}
       />
-      {activeDotData && (
+      {/* {activeDay && ( */}
         <ReferenceArea
-          x1={activeDotData.day}
-          x2={arrayData[arrayData.length - 1].day}
-          fill="#E69999"
-          fillOpacity={0.2}
+          // x1={activeDay}
+          x1="M"
+          // x2={arrayData[arrayData.length - 1].day}
+          x2="V"
+          fillOpacity={0.4}
+          ifOverflow="extendDomain"
         />
-      )}
+      {/* )} */}
     </LineChart>
   );
 };

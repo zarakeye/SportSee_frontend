@@ -25,7 +25,6 @@ const PerformancesRadarChart: React.FC<PerformancesRadarChartProps> = ({ userId 
   }
 
   const { data } = userPerformance || {};
-  console.log(data);
   const performances = data?.data as {value: number; kind: number}[];
   // console.log(performances);
   const arrayData: UserPerformancesReturn[] = [];
@@ -85,7 +84,6 @@ const PerformancesRadarChart: React.FC<PerformancesRadarChartProps> = ({ userId 
         <Radar
           name="Performance"
           dataKey="value"
-          stroke="#FFF"
           fill="#F00"
           fillOpacity={0.6}
         />
