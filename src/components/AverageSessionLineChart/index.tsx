@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ReferenceArea,
+  ResponsiveContainer,
 } from "recharts";
 import useFetchAverageSessions from "../../hooks/useFetchAverageSessions";
 import { CategoricalChartState } from "recharts/types/chart/types";
@@ -76,57 +77,68 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId}) => {
   };
 
   return (
-    <LineChart
-      width={278}
-      height={283}
-      data={sessions}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+    <ResponsiveContainer
+      width="100%"
+      height="100%"
+      // style={{
+      //   display: 'flex',
+      //   // justifyContent: 'center',
+      //   // alignItems: 'center',
+      //   borderRadius: "5px"
+      // }}
     >
-      <CartesianGrid strokeDasharray="3 3" fill="#E60000" vertical={false} horizontal={false} />
-      <XAxis
-        axisLine={false}
-        dataKey="day"
-        tickFormatter={(value) => dayLabels[Math.floor(value - 1)]}
-        tick={{ fill: '#FFFFFF', fillOpacity: 0.5}}
-        tickLine={false}
-        tickMargin={-32}
-        
-        padding={{ left: 14, right: 14 }}
-      />
-      <YAxis hide={true} />
-      <Tooltip content={<CustomTooltip />} cursor={false} />
-      <Line
-        type="monotone"
-        dataKey="sessionLength"
-        stroke="#FFF"
-        dot={false}
-        activeDot={{ r: 4, strokeWidth: 8, strokeOpacity: 0.5, style: { transform: "translateX(-14px)" }}}
-        strokeWidth={2}
-        style={{
-          transform: "translate(-14px, 0px)",
+      <LineChart
+        // width={258}
+        // height={263}
+        data={sessions}
+        margin={{
+          top: 5,
+          right: 0,
+          left: 0,
+          bottom: 5,
         }}
-      />
-      {activeDay && (
-        <ReferenceArea
-          x1={activeDay}
-          // x2={sessions[sessions.length - 1].day}
-          x2={sessions.length}
-          fill="#000"
-          fillOpacity={.15}
-          ifOverflow="extendDomain"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <CartesianGrid strokeDasharray="3 3" fill="#E60000" vertical={false} horizontal={false} />
+        <XAxis
+          axisLine={false}
+          dataKey="day"
+          tickFormatter={(value) => dayLabels[Math.floor(value - 1)]}
+          tick={{ fill: '#FFFFFF', fillOpacity: 0.5}}
+          tickLine={false}
+          // tickMargin={-32}
+          
+          padding={{ left: 14, right: 14 }}
+        />
+        <YAxis hide={true} />
+        <Tooltip content={<CustomTooltip />} cursor={false} />
+        <Line
+          type="monotone"
+          dataKey="sessionLength"
+          stroke="#FFF"
+          dot={false}
+          activeDot={{ r: 4, strokeWidth: 8, strokeOpacity: 0.5, style: { transform: "translate(-14px, 32px)" }}}
+          strokeWidth={2}
           style={{
-            transform: "translateX(-14px)",
+            transform: "translate(-14px, 32px)",
           }}
         />
-      )}
-    </LineChart>
+        {activeDay && (
+          <ReferenceArea
+            x1={activeDay}
+            x2={sessions.length}
+            height={300}
+            fill="#000"
+            fillOpacity={.15}
+            ifOverflow="extendDomain"
+            style={{
+              transform: "translate(-14px, 32px)",
+            }}
+          />
+        )}
+      </LineChart>
+    </ResponsiveContainer>
   );
 };
 

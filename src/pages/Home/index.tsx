@@ -43,7 +43,7 @@ const Home: React.FC = () => {
             <DailyActivityBarPlot userId={userId as string} />
           </div>
 
-          <div className="col-span-1 row-start-3 row-span-2 rounded-[5px]">        
+          <div className="col-span-1 row-start-3 row-span-2 h-[263px] w-[258px] bg-[#E60000] flex flex-col justify-center items-center rounded-[5px]">        
             <AverageSessionLineChart userId={userId as string} />
           </div>
           <div className="col-start-2 col-span-1 row-span-2 h-[263px] w-[258px] rounded-[5px] bg-[#282D30] flex flex-col justify-center items-center">
