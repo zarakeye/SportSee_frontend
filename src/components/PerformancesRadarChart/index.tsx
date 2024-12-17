@@ -13,6 +13,12 @@ interface PerformancesRadarChartProps {
   userId: string;
 }
 
+/**
+ * Displays a radar chart of a user's performances.
+ *
+ * @param userId The ID of the user to display performances for.
+ * @returns A React component displaying the radar chart.
+ */
 const PerformancesRadarChart: React.FC<PerformancesRadarChartProps> = ({ userId }) => {
   const { userPerformance, loading, error } = useFetchUserPerformance(userId);
 
@@ -26,7 +32,6 @@ const PerformancesRadarChart: React.FC<PerformancesRadarChartProps> = ({ userId 
 
   const { data } = userPerformance || {};
   const performances = data?.data as {value: number; kind: number}[];
-  // console.log(performances);
   const arrayData: UserPerformancesReturn[] = [];
   performances.forEach((performance) => {
     arrayData.push({

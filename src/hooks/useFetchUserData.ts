@@ -25,11 +25,24 @@ interface UseFetchUserDataReturn {
   error: Error | null;
 }
 
+  /**
+   * Fetches the user data for the given id.
+   *
+   * @param {string} id - The id of the user to fetch the data for.
+   *
+   * @returns {{userData: User | null, loading: boolean, error: Error | null}} - An object with the user data, a loading boolean, and an error if one occurred.
+   */
 const useFetchUserData = (id: string): UseFetchUserDataReturn => {
   const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
+  /**
+   * Fetches the user data for the given id.
+   * Aborts the fetch if the component unmounts before the fetch is complete.
+   * Updates the state with the response data or an error if the fetch fails.
+   * @param {string} id - The id of the user to fetch the data for.
+   */
   const fetchUser = async(id: string) => {
     setLoading(true);
     setError(null);

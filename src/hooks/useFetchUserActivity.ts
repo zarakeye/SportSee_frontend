@@ -11,11 +11,22 @@ export interface UserActivity {
   }
 }
 
+  /**
+   * Fetches the user activity data for a user with the given id.
+   * @param {string} id - The id of the user to fetch the activity for.
+   * @returns {{userActivity: UserActivity | null, loading: boolean, error: Error | null}} - An object with the user activity data, a loading boolean, and an error if one occurred.
+   */
 const useFetchUserActivity = (id: string) => {
   const [userActivity, setUserActivity] = useState<UserActivity | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
+  /**
+   * Fetches the user activity data for a user with the given id.
+   * Aborts the fetch if the component unmounts before the fetch is complete.
+   * Updates the state with the response data or an error if the fetch fails.
+   * @param {string} id - The id of the user to fetch the activity for.
+   */
   const fetchUserActivity = async(id: string) => {
     setLoading(true);
     setError(null);

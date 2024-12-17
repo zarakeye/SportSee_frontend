@@ -7,7 +7,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  // ReferenceArea,
   ResponsiveContainer,
 } from "recharts";
 import useFetchAverageSessions from "../../hooks/useFetchAverageSessions";
@@ -15,8 +14,6 @@ import { CategoricalChartState } from "recharts/types/chart/types";
 
 interface AverageSessionProps {
   userId: string;
-  // activeIndex: number | null;
-  // setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
   width: number;
   height: number;
   backgroundColor: string;
@@ -70,6 +67,11 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
     "D"
   ];
 
+  /**
+   * Sets the active day on mouse move over the chart, given as an argument the
+   * CategoricalChartState from the recharts library.
+   * @param {CategoricalChartState} e - The CategoricalChartState from recharts.
+   */
   const handleMouseMove = (e: CategoricalChartState) => {
     if (e && e.activePayload) {
       const { day } = e.activePayload[0].payload;
@@ -85,7 +87,6 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
 
   return (
     <div className={`relative col-span-1 row-start-3 row-span-2 flex flex-col bg-[${backgroundColor}] justify-center items-center rounded-[5px] w-[${width}px] h-[${height}px] `}>
-    {/* <div className="relative w-[258px] h-[263px] rounded-[5px]"> */}
       <ResponsiveContainer
         width="100%"
         height={263}
@@ -97,8 +98,6 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
         }}
       >
         <LineChart
-          // width={258}
-          // height={263}
           data={sessions}
           margin={{
             top: 5,
@@ -116,8 +115,6 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
             tickFormatter={(value) => dayLabels[Math.floor(value - 1)]}
             tick={{ fill: '#FFFFFF', fillOpacity: 0.5}}
             tickLine={false}
-            // tickMargin={-32}
-            
             padding={{ left: 14, right: 14 }}
           />
           <YAxis
@@ -137,30 +134,10 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
               transform: "translate(-14px, 32px)",
             }}
           />
-          {/*
-          {activeDay && (
-            <ReferenceArea
-              x1={activeDay}
-              x2={sessions.length}
-            //   // x2={Number.MAX_SAFE_INTEGER}
-            //   // height="100%"
-              y1={-32}
-              y2={263}
-              fill="#000"
-              fillOpacity={.15}
-              ifOverflow="visible"
-              style={{
-                transform: "translate(-14px, 32px)",
-                paddingRight: "-14px"
-              }}
-            />
-            <rect x={data[activeIndex].name} y={0} width="2" height="100%" fill="rgba(0, 0, 0, 0.1)" />
-            <div className={`absolute top-0 left-[${activeDay}px] right-0 bottom-0 bg-secondary opacity-50 z-30`}></div>
-          )}
-          */}
         </LineChart>
       </ResponsiveContainer>
       <p className="absolute text-[15px] font-medium top-[29px] left-[34px] text-quaternary bg-transparent z-10 w-[147px] h-[48px]">Durée moyenne des sessions</p>
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/65 to-transparent z-[20] pointer-events-none"></div>
       {activeDay !== null && (
         <div style={{ width: `${width - ((activeDay * 258 / 7)) + 32}px` }} className="absolute top-0 h-full right-0 bg-secondary opacity-10 z-[1000] pointer-events-none"></div>
       )}

@@ -10,11 +10,24 @@ export interface UserAverageSessions {
   }
 }
 
+/**
+ * Fetches the average session data for a user with the given id.
+ * Aborts the fetch if the component unmounts before the fetch is complete.
+ * Updates the state with the response data or an error if the fetch fails.
+ * @param {string} id - The id of the user to fetch the average sessions for.
+ * @returns {{userAverageSessions: UserAverageSessions | null, loading: boolean, error: Error | null}}
+ */
 const useFetchAverageSessions = (id: string) => {
   const [userAverageSessions, setUserAverageSessions] = useState<UserAverageSessions | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
+  /**
+   * Fetches the average session data for a user with the given id.
+   * Aborts the fetch if the component unmounts before the fetch is complete.
+   * Updates the state with the response data or an error if the fetch fails.
+   * @param {string} id - The id of the user to fetch the average sessions for.
+   */
   const fetchUserAverageSessions = async(id: string) => {
     setLoading(true);
     setError(null);

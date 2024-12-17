@@ -9,10 +9,20 @@ import musculationLogo from "../../assets/musculationLogo.svg";
 import DailyActivityBarPlot from "../../components/DailyActivityBarPlot";
 import AverageSessionLineChart from "../../components/AverageSessionLineChart";
 import PerformancesRadarChart from "../../components/PerformancesRadarChart";
-// import ChartWrapper from "../../components/ChartWrapper/index.tsx";
 import ScoreRadialChart from "../../components/ScoreRadialChart/index.tsx";
 import InfoCard from "../../components/InfoCard/index.tsx";
 
+/**
+ * The Home component is the main page of the application. It displays a dashboard with various charts
+ * and information cards for the current user.
+ *
+ * The component fetches the user data from the API and uses it to render the charts and information cards.
+ * It also renders a navigation menu on the left side of the page with links to the different activities.
+ *
+ * The component is rendered by the router when the user navigates to the root URL of the application.
+ *
+ * @returns The JSX element for the Home component.
+ */
 const Home: React.FC = () => {
   const {userId} = useParams();
   const fetchedUserData = useFetchUserData(userId as string);
@@ -24,7 +34,7 @@ const Home: React.FC = () => {
   return (
     <div className="flex">
       <aside className="relative w-[117px] bg-secondary h-screen flex flex-col justify-end items-center mb-[20px]">
-        <nav id="activitiesWrapper" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-between gap-5">
+        <nav id="activitiesWrapper" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[70%] flex flex-col justify-between gap-5">
           <ActivityLink href="/yoga" logo={yogaLogo} />
           <ActivityLink href="/swimming" logo={swimmingLogo} />
           <ActivityLink href="/cyclism" logo={cyclismLogo} />
@@ -41,32 +51,32 @@ const Home: React.FC = () => {
           <p className="text-[18px] font-regular">Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
         </header>
 
-        <div className="grid grid-cols-4 grid-rows-4 gap-x-[30px]">
-          <div className="col-start-1 col-span-3 row-span-2 bg-[#FBFBFB] w-[835px] height-[320px]">
-            <DailyActivityBarPlot userId={userId as string}  />
-          </div>
+        <div className="flex justify-between gap-[20px]">
+          <div className="flex flex-col w-[835px] gap-[20px]">
+            <div className="relative bg-[#FBFBFB] w-full h-[320px] mb-[28px] rounded-[5px]">
+              <DailyActivityBarPlot userId={userId as string}  />
+            </div>
 
-          <div className="row-start-3 col-span-1 row-span-2 h-[263px] w-[258px] bg-[#E60000] flex flex-col justify-center items-center rounded-[5px]">
-            <AverageSessionLineChart userId={userId as string} width={258} height={263} backgroundColor="#E60000" />
-          </div>
-          <div className="col-start-2 col-span-1 row-span-2 h-[263px] w-[258px] rounded-[5px] bg-[#282D30] flex flex-col justify-center items-center">
-            <PerformancesRadarChart userId={userId as string} />
-          </div>
-          <div className="col-start-3 col-span-1 row-span-2 h-[263px] w-[258px] rounded-[5px] bg-[#FBFBFB] flex flex-col justify-center items-center">
-            <ScoreRadialChart score={score as number} todayScore={todayScore as number} width={258} height={263} />
-          </div>
-          <div className="col-start-4 col-span-1 row-start-1 row-span-4">
-            <div className="flex flex-col justify-between h-full">
-            {
-              keyData && Object.values(keyData).map((value, index) => (
-                <InfoCard key={index} dataType={Object.keys(keyData)[index]} value={value} />
-              ))
-            }
+            <div className="flex justify-between w-full h-[263px] items-center">
+              <div className="flex justify-between items-center w-[258px] h-full rounded-[5px] bg-[#E60000]">
+                <AverageSessionLineChart userId={userId as string} width={258} height={263} backgroundColor="#E60000" />
+              </div>
+              <div className="flex justify-center items-center w-[258px] h-full rounded-[5px] bg-[#282D30]">
+                <PerformancesRadarChart userId={userId as string} />
+              </div>
+              <div className="flex justify-center items-center w-[258px] h-full rounded-[5px] bg-[#FBFBFB]">
+                <ScoreRadialChart score={score as number} todayScore={todayScore as number} width={258} height={263} />
+              </div>
             </div>
           </div>
+          <div className="flex flex-col justify-between gap-[39px] h-full">
+          {
+            keyData && Object.values(keyData).map((value, index) => (
+              <InfoCard key={index} dataType={Object.keys(keyData)[index]} value={value} />
+            ))
+          }
+          </div> 
         </div>
-
-        
       </main>
     </div>
   );

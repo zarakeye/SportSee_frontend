@@ -8,6 +8,23 @@ interface ScoreRadialChartProps {
   height: number;
 }
 
+/**
+ * ScoreRadialChart is a functional component that renders a radial bar chart
+ * representing the score of a user. It takes the score or today's score as a 
+ * percentage of the total 100%, along with width and height for the chart dimensions.
+ * 
+ * Props:
+ * - score: The user's score, represented as a number between 0 and 1. 
+ * - todayScore: If score is unavailable, today's score can be used.
+ * - width: The width of the chart.
+ * - height: The height of the chart.
+ * 
+ * The component computes the score value in percentage and displays it in a radial 
+ * chart. If no score is available, it renders a message indicating the absence of a score.
+ * The chart has an inner circle to display the score percentage and a label indicating 
+ * the user's progress towards their goal.
+ */
+
 const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, width, height}) => {
   const scoreValue = score !== undefined ? score * 100 : todayScore !== undefined ? todayScore * 100 : 0;
 
@@ -41,8 +58,8 @@ const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, w
           outerRadius="100%"
           barSize={10}
           data={chartData}
-          startAngle={90}
-          endAngle={-270}
+          startAngle={120}
+          endAngle={-240}
           
         >
           <PolarAngleAxis
