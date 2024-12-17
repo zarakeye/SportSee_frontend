@@ -5,7 +5,7 @@ interface ContainerProps {
 }
 
 const Container: React.FC<ContainerProps> = ({ children }) => {
-  return <div id="container" className="overflow-clip w-screen">{children}</div>;
+  return <div id="container" className="relative overflow-clip w-screen h-screen">{children}</div>;
 };
 
 export default Container;

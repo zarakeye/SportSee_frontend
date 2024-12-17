@@ -9,27 +9,30 @@ import musculationLogo from "../../assets/musculationLogo.svg";
 import DailyActivityBarPlot from "../../components/DailyActivityBarPlot";
 import AverageSessionLineChart from "../../components/AverageSessionLineChart";
 import PerformancesRadarChart from "../../components/PerformancesRadarChart";
+// import ChartWrapper from "../../components/ChartWrapper/index.tsx";
+import ScoreRadialChart from "../../components/ScoreRadialChart/index.tsx";
+import InfoCard from "../../components/InfoCard/index.tsx";
 
 const Home: React.FC = () => {
   const {userId} = useParams();
   const fetchedUserData = useFetchUserData(userId as string);
   const { userData } = fetchedUserData;
   const { data } = userData || {};
-  const { id, userInfos, todayScore, score, keyData } = data || {};
+  const { userInfos, todayScore, score, keyData } = data || {};
   console.log(userInfos?.firstName);
 
   return (
     <div className="flex">
-      <aside className="position-relative w-[117px] bg-secondary h-screen position-relative flex flex-col justify-center items-center">
-        <nav id="activitiesWrapper" className="flex flex-col justify-between gap-5">
+      <aside className="relative w-[117px] bg-secondary h-screen flex flex-col justify-end items-center mb-[20px]">
+        <nav id="activitiesWrapper" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-between gap-5">
           <ActivityLink href="/yoga" logo={yogaLogo} />
           <ActivityLink href="/swimming" logo={swimmingLogo} />
           <ActivityLink href="/cyclism" logo={cyclismLogo} />
           <ActivityLink href="/musculation" logo={musculationLogo} />
         </nav>
-        <p className="absolute bottom-[20px] text-[12px] text-nowrap font-regular text-quaternary font-roboto rotate-[-90deg]">Copyright, SportSee 2020</p>
+        <p className="text-[12px] text-nowrap font-regular text-quaternary font-roboto rotate-[-90deg] mb-[200px]">Copyright, SportSee 2020</p>
       </aside>
-      <main className="flex-1 pt-[68px] pl-[107px] pr-[90px]">
+      <main className="relative shadow-inner before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-b before:from-gray-300/80 before:to-transparent flex-1 pt-[68px] pl-[107px] pr-[90px]">
         <header className="font-roboto flex flex-col justify-between h-[89px] gap-[40px] mb-[77px]">
           <h1 className="sr-only">Page d'accueil de {userInfos?.firstName + " " + userInfos?.lastName}</h1>
           <p className="text-[48px] font-medium">
@@ -38,16 +41,28 @@ const Home: React.FC = () => {
           <p className="text-[18px] font-regular">Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
         </header>
 
-        <div className="grid grid-cols-4 grid-rows-4">
-          <div className="col-start-1 col-span-3 row-span-2">
-            <DailyActivityBarPlot userId={userId as string} />
+        <div className="grid grid-cols-4 grid-rows-4 gap-x-[30px]">
+          <div className="col-start-1 col-span-3 row-span-2 bg-[#FBFBFB] w-[835px] height-[320px]">
+            <DailyActivityBarPlot userId={userId as string}  />
           </div>
 
-          <div className="col-span-1 row-start-3 row-span-2 h-[263px] w-[258px] bg-[#E60000] flex flex-col justify-center items-center rounded-[5px]">        
-            <AverageSessionLineChart userId={userId as string} />
+          <div className="row-start-3 col-span-1 row-span-2 h-[263px] w-[258px] bg-[#E60000] flex flex-col justify-center items-center rounded-[5px]">
+            <AverageSessionLineChart userId={userId as string} width={258} height={263} backgroundColor="#E60000" />
           </div>
           <div className="col-start-2 col-span-1 row-span-2 h-[263px] w-[258px] rounded-[5px] bg-[#282D30] flex flex-col justify-center items-center">
             <PerformancesRadarChart userId={userId as string} />
+          </div>
+          <div className="col-start-3 col-span-1 row-span-2 h-[263px] w-[258px] rounded-[5px] bg-[#FBFBFB] flex flex-col justify-center items-center">
+            <ScoreRadialChart score={score as number} todayScore={todayScore as number} width={258} height={263} />
+          </div>
+          <div className="col-start-4 col-span-1 row-start-1 row-span-4">
+            <div className="flex flex-col justify-between h-full">
+            {
+              keyData && Object.values(keyData).map((value, index) => (
+                <InfoCard key={index} dataType={Object.keys(keyData)[index]} value={value} />
+              ))
+            }
+            </div>
           </div>
         </div>
 

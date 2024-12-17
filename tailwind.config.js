@@ -18,6 +18,10 @@ export default {
       'secondary': "#000000",
       'tertiary': "#74798C",
       'quaternary': "#FFFFFF",
+      'proteins': "#4AB8FF",
+      'calories': "#FF0000",
+      'glucids': "#F9CE23",
+      'lipids': "#FD5181",
     },
     fontFamily: {
       roboto: ["Roboto", "sans-serif"],
