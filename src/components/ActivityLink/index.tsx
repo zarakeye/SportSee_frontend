@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface ActivityLinkProps {
   href: string;
@@ -18,9 +18,9 @@ interface ActivityLinkProps {
 
 const ActivityLink: React.FC<ActivityLinkProps> = ({ href, logo }) => {
   return (
-    <NavLink to={href} className="w-[64px] h-[64px] flex flex-col justify-center items-center bg-quaternary rounded-md">
+    <Link to={href} className="w-[64px] h-[64px] flex flex-col justify-center items-center bg-quaternary rounded-md">
       <img src={logo} alt="" />
-    </NavLink>
+    </Link>
   );
 }
 
