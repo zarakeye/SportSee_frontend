@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart, Text, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Text, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts';
 import useFetchUserActivity from "../../hooks/useFetchUserActivity";
 
 interface UserActivityReturn {
@@ -19,6 +19,11 @@ interface CustomTooltipProps {
   payload: {value: string}[];
 }
 
+interface CustomLegendProps {
+  payload: {value: string}[];
+}
+
+
 const CustomTooltip: React.FC<CustomTooltipProps> = ({ payload }) => {
   if (payload && payload.length) {
     return (
@@ -32,7 +37,29 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ payload }) => {
   return null;
 };
 
-const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId, width, height, backgroundColor}) => {
+const CustomLegend: React.FC<CustomLegendProps> = ({payload}) => {
+  return (
+    <ul className="flex mt-[-155px] mr-[-50px]">
+      {payload.map((item, index) => (
+        <li
+          key={`item-${index}`}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginRight: '32px'
+          }}
+        >
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" style={{ marginRight: '10px'}}>
+            <circle cx="4" cy="4" r="4" fill={index === 0 ? '#000' : '#E60000'} />
+          </svg>
+          <span className="text-tertiary text-[14px] font-medium">{item.value === 'kilogram' ? 'Poids (kg)' : 'Calories brûlées (kCal)'}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId}) => {
   const { userActivity, loading, error } = useFetchUserActivity(userId);
   
   if (loading) {
@@ -57,33 +84,49 @@ const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId, width, heig
   });
 
   return (
-    // <div className={`relative col-span-1 row-start-3 row-span-2 flex flex-col bg-[${backgroundColor}] justify-center items-center rounded-[5px] w-[${width}px] h-[${height}px] `}>
+    <>
       <ResponsiveContainer width="100%" height="100%" >
         <BarChart
           width={700}
-          height={145}
+          height={100}
           data={sessions}
           margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
+            top: 112.5,
+            right: 40,
+            left: 43,
+            bottom: 62.5,
           }}
           barGap={8}
         >
+          <Text fill="#000000" textAnchor="middle" dominantBaseline="hanging" fontSize={15} fontWeight={500}>Activité quotidienne</Text>
           <CartesianGrid strokeDasharray="3 3" vertical={false}/>
           <XAxis
             dataKey="day"
             // axisLine={false}
             stroke="#9B9EAC"
             tickLine={false}
-          />
+          >
+            <Label
+              value="Activité quotidienne"
+              position="end"
+              offset={-40}
+              style={{
+                fontSize: '15px',
+                fill: '#20262E',
+                fontWeight: 500,
+                textAnchor: 'end',
+                transform: 'translate(-225px, -210px)',
+                
+              }}
+            />
+          </XAxis>
           <YAxis
             axisLine={false}
             tickLine={false}
             tickCount={5}
             orientation="right"
-          />
+          >
+          </YAxis>
           <Tooltip content={<CustomTooltip payload={[]} />}  />
           <Legend
             iconType="circle"
@@ -94,14 +137,19 @@ const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId, width, heig
               return value === 'kilogram' ? 'Poids (kg)' : 'Calories brûlées (kCal)';
             }}
             markerHeight={10}
-            wrapperStyle={{ marginRight: 32 }}
+            wrapperStyle={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: '50px'
+            }}
+            content={<CustomLegend payload={[{value: 'kilogram'}, {value: 'calories'}]}/>}
           />
-          <Text x={130} y={24} fill="#000000" textAnchor="start" dominantBaseline="hanging" fontSize={15}>Activité quotidienne</Text>
+          
           <Bar dataKey="kilogram" fill="#282D30" barSize={7} radius={[3, 3, 0, 0]} />
           <Bar dataKey="calories" fill="#E60000" barSize={7} radius={[3, 3, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
-    // </div>
+    </>
   );
 };
 
