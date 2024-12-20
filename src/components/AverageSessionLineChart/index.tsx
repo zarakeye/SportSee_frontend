@@ -8,10 +8,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  ReferenceArea
+  ReferenceArea,
 } from "recharts";
 import useFetchAverageSessions from "../../hooks/useFetchAverageSessions";
 import { CategoricalChartState } from "recharts/types/chart/types";
+import { Legend } from "recharts";
 
 interface AverageSessionProps {
   userId: string;
@@ -146,7 +147,32 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
               <stop offset="0%" stopColor="#000" stopOpacity={0}/>
               <stop offset="100%" stopColor="#000" stopOpacity={0.1}/>
             </linearGradient>
+            <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#FF6666"/>
+              <stop offset="100%" stopColor="#FFFFFF"/>
+            </linearGradient>
           </defs>
+          <Legend
+            verticalAlign="top"
+            align="left"
+            content={() => {
+              return (
+                <div style={{
+                  color: '#FFFFFF',
+                  fontSize: '15px',
+                  fontWeight: 500,
+                  opacity: 0.5,
+                  lineHeight: '20px',
+                  width: '147px',
+                  height: '57px',
+                  transform: 'translate(34px, -55px)',
+                }}>
+                  Durée moyenne des<br/>
+                  sessions
+                </div>
+              );
+            }}
+          />
           <CartesianGrid
             strokeDasharray="3 3"
             fill="#E60000"
@@ -159,17 +185,13 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
             tickFormatter={(value) => {
               if (value < 0 || value > 7) return '';
               return dayLabels[Math.floor(value - 1)] || '';
-              // (value) => dayLabels[Math.floor(value - 1)]
-        
             }}
-            // tick={{ fill: '#FFFFFF', fillOpacity: 0.5}}
             tick={<CustomTick x={0} y={0} payload={{
               value: 0
             }} />}
             tickLine={false}
             tickMargin={0}
             domain={[0, 7]}
-            // padding={{ left: 14, right: 14 }}
             interval={0}
             scale="point"
           />
@@ -181,7 +203,7 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
           <Line
             type="monotone"
             dataKey="sessionLength"
-            stroke="#FFF"
+            stroke="url(#lineGradient)"
             dot={false}
             activeDot={{
               r: 4,
@@ -205,11 +227,6 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
 
         </LineChart>
       </ResponsiveContainer>
-      <p className="absolute text-[15px] font-medium top-[29px] left-[34px] text-quaternary bg-transparent z-10 w-[147px] h-[48px]">Durée moyenne des sessions</p>
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/15 to-transparent z-[20] pointer-events-none rounded-[5px]"></div>
-      {/*{activeDay !== null && (
-        <div style={{ width: `${width - ((activeDay * 258 / 7)) + 32}px` }} className="absolute top-0 h-full right-0 bg-secondary opacity-10 z-[1000] pointer-events-none"></div>
-      )}*/}
     </div>
   );
 };
