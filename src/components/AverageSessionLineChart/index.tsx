@@ -164,6 +164,7 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
         </LineChart>
       </ResponsiveContainer>
       <p className="absolute text-[15px] font-medium top-[29px] left-[34px] text-quaternary bg-transparent z-10 w-[147px] h-[48px]">Durée moyenne des sessions</p>
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-transparent z-[20] pointer-events-none"></div>
       {activeDay !== null && (
         <div style={{ width: `${width - ((activeDay * 258 / 7)) + 32}px` }} className="absolute top-0 h-full right-0 bg-secondary opacity-10 z-[1000] pointer-events-none"></div>
       )}
