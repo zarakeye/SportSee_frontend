@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 
 export interface UserAverageSessions {
-  data: {
-    userId: number;
-    sessions: {
-      day: number;
-      sessionLength: number;
-    }[];
-  }
+  userId: number;
+  sessions: {
+    day: number;
+    sessionLength: number;
+  }[];
+}
+
+export interface UserAverageSessionsApi {
+  data: UserAverageSessions
 }
 
 const useFetchAverageSessions = (id: string) => {
@@ -26,9 +28,10 @@ const useFetchAverageSessions = (id: string) => {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
       }
 
-      const data = await response.json();
+      const fetchData: UserAverageSessionsApi = await response.json();
+      const sessions = fetchData.data;
 
-      setUserAverageSessions(data);
+      setUserAverageSessions(sessions);
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') {
         console.log('Fetch aborted');

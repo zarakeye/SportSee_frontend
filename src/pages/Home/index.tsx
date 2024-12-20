@@ -17,9 +17,7 @@ const Home: React.FC = () => {
   const {userId} = useParams();
   const fetchedUserData = useFetchUserData(userId as string);
   const { userData } = fetchedUserData;
-  const { data } = userData || {};
-  const { userInfos, todayScore, score, keyData } = data || {};
-  console.log(userInfos?.firstName);
+  const { userInfos, todayScore, score, keyData } = userData || {};
 
   return (
     <div className="flex">
@@ -66,9 +64,7 @@ const Home: React.FC = () => {
             ))
           }
           </div> 
-        </div>
-
-        
+        </div>   
       </main>
     </div>
   );

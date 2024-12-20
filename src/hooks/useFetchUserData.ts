@@ -43,9 +43,10 @@ const useFetchUserData = (id: string): UseFetchUserDataReturn => {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
       }
 
-      const data = await response.json();
+      const fetchData: UserApi = await response.json();
 
-      setUserData(data);
+
+      setUserData(fetchData.data);
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') {
         console.log('Fetch aborted');

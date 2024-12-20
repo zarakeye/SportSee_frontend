@@ -39,9 +39,8 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
     return <p>Error: {error.message}</p>;
   }
 
-  const {data} = userAverageSessions || {};
+  const {sessions} = userAverageSessions || {};
 
-  const sessions = data?.sessions as { day: number; sessionLength: number }[];
 
   const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
     if (active && payload && payload.length) {

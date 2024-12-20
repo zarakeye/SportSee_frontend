@@ -70,12 +70,11 @@ const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId}) => {
     return <p>Error: {error.message}</p>;
   }
 
-  const {data} = userActivity || {};
+  const {sessions} = userActivity || {};
   
-  const sessions = data?.sessions as { day: string; kilogram: number; calories: number }[];
   console.log(sessions);
   const arrayData: UserActivityReturn[] = [];
-  sessions.forEach((session) => {
+  sessions?.forEach((session) => {
     arrayData.push({
       name: session.day,
       kilogram: session.kilogram,

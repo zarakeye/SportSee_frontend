@@ -25,10 +25,8 @@ const PerformancesRadarChart: React.FC<PerformancesRadarChartProps> = ({ userId 
   }
 
   const { data } = userPerformance || {};
-  const performances = data?.data as {value: number; kind: number}[];
-  // console.log(performances);
   const arrayData: UserPerformancesReturn[] = [];
-  performances.forEach((performance) => {
+  data?.forEach((performance) => {
     arrayData.push({
       value: performance.value,
       kind: performance.kind === 1 ? 'cardio' : performance.kind === 2 ? 'energy' : performance.kind === 3 ? 'endurance' : performance.kind === 4 ? 'strength' : performance.kind === 5 ? 'speed' : 'intensity',

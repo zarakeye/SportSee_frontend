@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 
 export interface UserActivity {
-  data: {
-    userId: number;
-    sessions: {
-      day: string;
-      kilogram: number;
-      calories: number;
-    }[];
-  }
+  userId: number;
+  sessions: {
+    day: string;
+    kilogram: number;
+    calories: number;
+  }[];
+}
+
+export interface UserActivityApi {
+  data: UserActivity
 }
 
 const useFetchUserActivity = (id: string) => {
@@ -27,9 +29,10 @@ const useFetchUserActivity = (id: string) => {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
       }
 
-      const data = await response.json();
+      const fetchData: UserActivityApi = await response.json();
+      const sessions = fetchData.data;
 
-      setUserActivity(data);
+      setUserActivity(sessions);
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') {
         console.log('Fetch aborted');

@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 
-
 export interface UserPerformance {
+  userId: number;
+  kind: string[];
   data: {
-    userId: number;
-    kind: string[];
-    data: {
-      value: number;
-      kind: number;
-    }[];
-  }
+    value: number;
+    kind: number;
+  }[];
+}
+
+export interface UserPerformanceApi {
+  data: UserPerformance
 }
 
 export interface UserPerformancesReturn {
@@ -34,7 +35,8 @@ const useFetchUserPerformance = (id: string) => {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
       }
 
-      const data = await response.json();
+      const fetchData: UserPerformanceApi = await response.json();
+      const data = fetchData.data;
 
       setUserPerformance(data);
     } catch (err) {
