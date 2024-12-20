@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 
-export interface User {
-  data: {
-    id: number;
-    userInfos: {
-      firstName: string;
-      lastName: string;
-      age: number;
-    };
-    todayScore?: number;
-    score?: number;
-    keyData: {
-      calorieCount: number;
-      proteinCount: number;
-      carbohydrateCount: number;
-      lipidCount: number;
-    };
-  }
+interface User {
+  id: number;
+  userInfos: {
+    firstName: string;
+    lastName: string;
+    age: number;
+  };
+  todayScore?: number;
+  score?: number;
+  keyData: {
+    calorieCount: number;
+    proteinCount: number;
+    carbohydrateCount: number;
+    lipidCount: number;
+  };
+}
+
+export interface UserApi {
+  data: User;
 }
 
 interface UseFetchUserDataReturn {
@@ -35,12 +37,7 @@ const useFetchUserData = (id: string): UseFetchUserDataReturn => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/user/${id}`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Accept": "application/json"
-        }
-      });
+      const response = await fetch(`/api/user/${id}`);
 
       if (!response.ok) {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);

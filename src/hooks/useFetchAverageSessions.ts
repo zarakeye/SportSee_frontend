@@ -20,12 +20,7 @@ const useFetchAverageSessions = (id: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/user/${id}/average-sessions`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Accept": "application/json"
-        }
-      });
+      const response = await fetch(`/api/user/${id}/average-sessions`);
 
       if (!response.ok) {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);

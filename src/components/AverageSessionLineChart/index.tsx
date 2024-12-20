@@ -8,15 +8,12 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Label,
 } from "recharts";
 import useFetchAverageSessions from "../../hooks/useFetchAverageSessions";
 import { CategoricalChartState } from "recharts/types/chart/types";
 
 interface AverageSessionProps {
   userId: string;
-  // activeIndex: number | null;
-  // setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
   width: number;
   height: number;
   backgroundColor: string;
@@ -85,7 +82,6 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
 
   return (
     <div className={`relative col-span-1 row-start-3 row-span-2 flex flex-col bg-[${backgroundColor}] justify-center items-center rounded-[5px] w-[${width}px] h-[${height}px] `}>
-    {/* <div className="relative w-[258px] h-[263px] rounded-[5px]"> */}
       <ResponsiveContainer
         width="100%"
         height={260}
@@ -97,8 +93,6 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
         }}
       >
         <LineChart
-          // width={258}
-          // height={263}
           data={sessions}
           margin={{
             top: 80,
@@ -164,7 +158,7 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
         </LineChart>
       </ResponsiveContainer>
       <p className="absolute text-[15px] font-medium top-[29px] left-[34px] text-quaternary bg-transparent z-10 w-[147px] h-[48px]">Durée moyenne des sessions</p>
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-transparent z-[20] pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/15 to-transparent z-[20] pointer-events-none rounded-[5px]"></div>
       {activeDay !== null && (
         <div style={{ width: `${width - ((activeDay * 258 / 7)) + 32}px` }} className="absolute top-0 h-full right-0 bg-secondary opacity-10 z-[1000] pointer-events-none"></div>
       )}

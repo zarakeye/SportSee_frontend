@@ -28,12 +28,7 @@ const useFetchUserPerformance = (id: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/user/${id}/performance`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Accept": "application/json"
-        }
-      });
+      const response = await fetch(`/api/user/${id}/performance`);
 
       if (!response.ok) {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
