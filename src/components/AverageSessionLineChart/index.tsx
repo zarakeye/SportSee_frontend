@@ -7,8 +7,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  // ReferenceArea,
   ResponsiveContainer,
+  Label,
 } from "recharts";
 import useFetchAverageSessions from "../../hooks/useFetchAverageSessions";
 import { CategoricalChartState } from "recharts/types/chart/types";
@@ -88,7 +88,7 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
     {/* <div className="relative w-[258px] h-[263px] rounded-[5px]"> */}
       <ResponsiveContainer
         width="100%"
-        height={263}
+        height={260}
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -101,7 +101,7 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
           // height={263}
           data={sessions}
           margin={{
-            top: 5,
+            top: 80,
             right: 0,
             left: 0,
             bottom: 5,
@@ -109,14 +109,19 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          <CartesianGrid strokeDasharray="3 3" fill="#E60000" vertical={false} horizontal={false} />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            fill="#E60000"
+            vertical={false}
+            horizontal={false}
+          />
           <XAxis
             axisLine={false}
             dataKey="day"
             tickFormatter={(value) => dayLabels[Math.floor(value - 1)]}
             tick={{ fill: '#FFFFFF', fillOpacity: 0.5}}
             tickLine={false}
-            // tickMargin={-32}
+            tickMargin={0}
             
             padding={{ left: 14, right: 14 }}
           />
@@ -130,34 +135,32 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
             dataKey="sessionLength"
             stroke="#FFF"
             dot={false}
-            activeDot={{ r: 4, strokeWidth: 8, strokeOpacity: 0.5, style: { transform: "translate(-14px, 32px)" }}}
+            activeDot={{ r: 4, strokeWidth: 8, strokeOpacity: 0.5, style: { transform: "translate(-14px, 0)" }}}
             strokeWidth={2}
             connectNulls={true}
             style={{
-              transform: "translate(-14px, 32px)",
+              transform: "translate(-14px, 0)",
             }}
           />
-          {/*
-          {activeDay && (
+          
+          {/* {activeDay && (
             <ReferenceArea
               x1={activeDay}
               x2={sessions.length}
             //   // x2={Number.MAX_SAFE_INTEGER}
             //   // height="100%"
-              y1={-32}
-              y2={263}
+              // y1={-32}
+              y2={265}
               fill="#000"
               fillOpacity={.15}
-              ifOverflow="visible"
+              ifOverflow="extendDomain"
               style={{
                 transform: "translate(-14px, 32px)",
                 paddingRight: "-14px"
               }}
             />
-            <rect x={data[activeIndex].name} y={0} width="2" height="100%" fill="rgba(0, 0, 0, 0.1)" />
-            <div className={`absolute top-0 left-[${activeDay}px] right-0 bottom-0 bg-secondary opacity-50 z-30`}></div>
-          )}
-          */}
+          )} */}
+
         </LineChart>
       </ResponsiveContainer>
       <p className="absolute text-[15px] font-medium top-[29px] left-[34px] text-quaternary bg-transparent z-10 w-[147px] h-[48px]">Durée moyenne des sessions</p>
