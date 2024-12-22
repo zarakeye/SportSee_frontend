@@ -72,8 +72,8 @@ const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId}) => {
 
   const {sessions} = userActivity || {};
   
-  console.log(sessions);
   const arrayData: UserActivityReturn[] = [];
+
   sessions?.forEach((session) => {
     arrayData.push({
       name: session.day,
@@ -82,13 +82,19 @@ const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId}) => {
     });
   });
 
+  // Formater les dates pour n'afficher que le jour
+  const formattedData = sessions?.map(session => ({
+    ...session,
+    day: new Date(session.day).getDate()
+  }));
+
   return (
     <>
       <ResponsiveContainer width="100%" height="100%" >
         <BarChart
           width={700}
           height={100}
-          data={sessions}
+          data={formattedData}
           margin={{
             top: 112.5,
             right: 40,
@@ -101,9 +107,11 @@ const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId}) => {
           <CartesianGrid strokeDasharray="3 3" vertical={false}/>
           <XAxis
             dataKey="day"
-            // axisLine={false}
             stroke="#9B9EAC"
             tickLine={false}
+            tickFormatter={(value) => value}
+            domain={['dataMin', 'dataMax']}
+            padding={{ left: -46, right: -46 }}
           >
             <Label
               value="Activité quotidienne"
@@ -144,8 +152,8 @@ const DailyActivityBarPlot: React.FC<DailyActivityProps> = ({userId}) => {
             content={<CustomLegend payload={[{value: 'kilogram'}, {value: 'calories'}]}/>}
           />
           
-          <Bar dataKey="kilogram" fill="#282D30" barSize={7} radius={[3, 3, 0, 0]} />
-          <Bar dataKey="calories" fill="#E60000" barSize={7} radius={[3, 3, 0, 0]} />
+          <Bar dataKey="kilogram" fill="#282D30" barSize={7} radius={[7, 7, 0, 0]}/>
+          <Bar dataKey="calories" fill="#E60000" barSize={7} radius={[7, 7, 0, 0]}/>
         </BarChart>
       </ResponsiveContainer>
     </>

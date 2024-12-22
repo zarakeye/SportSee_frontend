@@ -13,6 +13,8 @@ export interface UserActivityApi {
   data: UserActivity
 }
 
+export const API_URL = import.meta.env.VITE_API_URL;
+
 const useFetchUserActivity = (id: string) => {
   const [userActivity, setUserActivity] = useState<UserActivity | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,7 +25,12 @@ const useFetchUserActivity = (id: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/user/${id}/activity`);
+      const response = await fetch(`${API_URL}/user/${id}/activity`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        } 
+      });
 
       if (!response.ok) {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
@@ -34,13 +41,9 @@ const useFetchUserActivity = (id: string) => {
 
       setUserActivity(sessions);
     } catch (err) {
-      if (err instanceof DOMException && err.name === 'AbortError') {
-        console.log('Fetch aborted');
-        return;
-      }
-
-      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
-      console.error("Fetch error:", errorMessage);
+      const error = err as Error;
+      console.error(`Error while connecting to the API(${API_URL}/user/${id}/activity): ${error.message}`);
+      const errorMessage = `Impossible to fetch data. Please check if backend is running on ${API_URL} and if the endpoint is correct.`;
       setError(new Error(errorMessage));
     } finally {
       setLoading(false);
