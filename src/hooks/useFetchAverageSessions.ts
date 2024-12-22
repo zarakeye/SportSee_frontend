@@ -12,6 +12,8 @@ export interface UserAverageSessionsApi {
   data: UserAverageSessions
 }
 
+export const API_URL = import.meta.env.VITE_API_URL;
+
 const useFetchAverageSessions = (id: string) => {
   const [userAverageSessions, setUserAverageSessions] = useState<UserAverageSessions | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -22,7 +24,14 @@ const useFetchAverageSessions = (id: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/user/${id}/average-sessions`);
+      // const response = await fetch(`${API_URL}/api/user/${id}/average-sessions`, {
+      const response = await fetch(`${API_URL}/user/${id}/average-sessions`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          // "Accept": "application/json",
+          "Content-Type": "application/json"
+        } 
+      });
 
       if (!response.ok) {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
