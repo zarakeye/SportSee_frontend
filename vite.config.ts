@@ -24,7 +24,8 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''),
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "Accept": "application/json"
+          "Accept": "application/json",
+          "Content-Type": "application/json"
         }
       }
     }
