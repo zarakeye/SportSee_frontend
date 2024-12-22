@@ -27,6 +27,8 @@ interface UseFetchUserDataReturn {
   error: Error | null;
 }
 
+export const API_URL = import.meta.env.VITE_API_URL;
+
 const useFetchUserData = (id: string): UseFetchUserDataReturn => {
   const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,7 +39,7 @@ const useFetchUserData = (id: string): UseFetchUserDataReturn => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/user/${id}`);
+      const response = await fetch(`${API_URL}/user/${id}`);
 
       if (!response.ok) {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);

@@ -13,6 +13,8 @@ export interface UserActivityApi {
   data: UserActivity
 }
 
+export const API_URL = import.meta.env.VITE_API_URL;
+
 const useFetchUserActivity = (id: string) => {
   const [userActivity, setUserActivity] = useState<UserActivity | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,7 +25,7 @@ const useFetchUserActivity = (id: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/user/${id}/activity`);
+      const response = await fetch(`${API_URL}/user/${id}/activity`);
 
       if (!response.ok) {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);

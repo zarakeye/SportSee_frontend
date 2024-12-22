@@ -19,6 +19,8 @@ export interface UserPerformancesReturn {
   error: Error | null;
 }
 
+export const API_URL = import.meta.env.VITE_API_URL;
+
 const useFetchUserPerformance = (id: string) => {
   const [userPerformance, setUserPerformance] = useState<UserPerformance | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,7 +31,7 @@ const useFetchUserPerformance = (id: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/user/${id}/performance`);
+      const response = await fetch(`${API_URL}/user/${id}/performance`);
 
       if (!response.ok) {
         throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
