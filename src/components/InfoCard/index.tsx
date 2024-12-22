@@ -11,7 +11,7 @@ interface InfoCardProps {
 
 const InfoCard: React.FC<InfoCardProps> = ({dataType, value}) => {
   return (
-    <div className='flex justify-start items-center bg-[#FBFBFB] h-[124px] pl-[32px] py-[32px] rounded-[5px]'>
+    <div className='flex justify-start items-center bg-[#FBFBFB] h-[124px] p-[32px] rounded-[5px]'>
       <div className={`relative flex justify-center items-center p-[22px] rounded-[6px] w-[60px] h-[60px] mr-[24px] bg-opacity-15 ${dataType === 'calorieCount' ? 'bg-calories' : dataType === 'proteinCount' ? 'bg-proteins' : dataType === 'carbohydrateCount' ? 'bg-glucids' : 'bg-lipids'}`}>
         {dataType === 'calorieCount' && <img src={calories} alt="icône calories représentée par une flamme" className='absolute w-[19px] h-[19px] m-[32px] z-[100]'/>}
         {dataType === 'proteinCount' && <img src={proteins} alt="icône proteines représentée par une cuisse de poulet" className='w-[19px] h-[19px]' />}
