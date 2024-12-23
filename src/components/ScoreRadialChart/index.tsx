@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResponsiveContainer, RadialBarChart, RadialBar, PolarAngleAxis } from 'recharts';
+import { ResponsiveContainer, RadialBarChart, RadialBar, PolarAngleAxis, Legend } from 'recharts';
 
 interface ScoreRadialChartProps {
   todayScore: number;
@@ -45,6 +45,26 @@ const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, w
           endAngle={-270}
           
         >
+          <Legend
+            verticalAlign="top"
+            align="left"
+            content={() => {
+              return (
+                <div style={{
+                  color: '#000',
+                  fontSize: '15px',
+                  fontWeight: 500,
+                  lineHeight: '20px',
+                  width: '39px',
+                  height: '24x',
+                  lineHeightStep: '24px',
+                  transform: 'translate(30px, 24px)',
+                }}>
+                  Score
+                </div>
+              );
+            }}
+          />
           <PolarAngleAxis
             type="number"
             domain={[0, 100]}

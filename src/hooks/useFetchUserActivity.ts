@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { getUserActivity } from "../services/userService";
 
 export interface UserActivity {
-  userId: number;
+  id: number;
   sessions: {
     day: string;
     kilogram: number;
@@ -25,21 +26,8 @@ const useFetchUserActivity = (id: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/user/${id}/activity`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
-        } 
-      });
-
-      if (!response.ok) {
-        throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
-      }
-
-      const fetchData: UserActivityApi = await response.json();
-      const sessions = fetchData.data;
-
-      setUserActivity(sessions);
+      const activity = await getUserActivity(Number(id));
+      setUserActivity(activity.data);
     } catch (err) {
       const error = err as Error;
       console.error(`Error while connecting to the API(${API_URL}/user/${id}/activity): ${error.message}`);

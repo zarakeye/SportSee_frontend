@@ -77,7 +77,10 @@ const PerformancesRadarChart: React.FC<PerformancesRadarChartProps> = ({ userId 
           stroke="#fff"
           fontSize="12px"
           tickLine={false}
-          transform="translateY(10px)"
+          // transform="translateY(10px)"
+          style={{
+            transform: 'translateY(10px)'
+          }}
         />
         <Radar
           name="Performance"

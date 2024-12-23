@@ -1,21 +1,6 @@
 import { useEffect, useState } from "react";
-
-interface User {
-  id: number;
-  userInfos: {
-    firstName: string;
-    lastName: string;
-    age: number;
-  };
-  todayScore?: number;
-  score?: number;
-  keyData: {
-    calorieCount: number;
-    proteinCount: number;
-    carbohydrateCount: number;
-    lipidCount: number;
-  };
-}
+import { User } from "../services/types";
+import {getUserData} from '../services/userService';
 
 export interface UserApi {
   data: User;
@@ -39,21 +24,9 @@ const useFetchUserData = (id: string): UseFetchUserDataReturn => {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/user/${id}`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
-        } 
-      });
-
-      if (!response.ok) {
-        throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
-      }
-
-      const fetchData: UserApi = await response.json();
-
-
-      setUserData(fetchData.data);
+      const user = await getUserData(Number(id));
+      console.log('userData:', user);
+      setUserData(user.data);
     } catch (err) {
       const error = err as Error;
       console.error(`Error while connecting to the API(${API_URL}/user/${id}): ${error.message}`);

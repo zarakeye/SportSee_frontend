@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { getUserAverageSessions } from '../services/userService';
 
 export interface UserAverageSessions {
-  userId: number;
+  id: number;
   sessions: {
     day: number;
     sessionLength: number;
@@ -24,21 +25,16 @@ const useFetchAverageSessions = (id: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/user/${id}/average-sessions`, {
-        headers: {
-          // "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
-        } 
-      });
+      const averageSessions = await getUserAverageSessions(Number(id));
 
-      if (!response.ok) {
-        throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
+      // }
 
-      const fetchData: UserAverageSessionsApi = await response.json();
-      const sessions = fetchData.data;
+      // const fetchData: UserAverageSessionsApi = await response.json();
+      // const sessions = fetchData.data;
 
-      setUserAverageSessions(sessions);
+      setUserAverageSessions(averageSessions.data);
     } catch (err) {
       const error = err as Error;
       console.error(`Error while connecting to the API(${API_URL}/user/${id}/average-sessions): ${error.message}`);

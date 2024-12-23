@@ -1,8 +1,16 @@
 import { useEffect, useState } from 'react';
+import { getUserPerformance } from '../services/userService';
 
 export interface UserPerformance {
-  userId: number;
-  kind: string[];
+  id: number;
+  kind: {
+    1: string;
+    2: string;
+    3: string;
+    4: string;
+    5: string;
+    6: string;
+  };
   data: {
     value: number;
     kind: number;
@@ -31,21 +39,9 @@ const useFetchUserPerformance = (id: string) => {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/user/${id}/performance`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json"
-        } 
-      });
-
-      if (!response.ok) {
-        throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
-      }
-
-      const fetchData: UserPerformanceApi = await response.json();
-      const data = fetchData.data;
-
-      setUserPerformance(data);
+      const performance = await getUserPerformance(Number(id));
+      console.log('userPerformance:', performance);
+      setUserPerformance(performance.data);
     } catch (err) {
       const error = err as Error;
       console.error(`Error while connecting to the API(${API_URL}/user/${id}/performance): ${error.message}`);

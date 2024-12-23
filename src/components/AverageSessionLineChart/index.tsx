@@ -81,15 +81,12 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
   const handleMouseMove = (e: CategoricalChartState) => {
     if (e && e.activePayload) {
       const { day } = e.activePayload[0].payload;
-      console.log('Mouse move - payload:', e.activePayload[0].payload);
       setActiveDay(day - 1);
-      console.log('activeDay:', activeDay);
     }
   };
 
   const handleMouseLeave = () => {
     setActiveDay(null);
-    console.log('activeDay:', activeDay);
   };
 
   const CustomTick: React.FC<CustomTickProps> = (props: CustomTickProps) => {
@@ -227,8 +224,6 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
 
         </LineChart>
       </ResponsiveContainer>
-      {/* <p className="absolute text-[15px] font-medium top-[29px] left-[34px] text-quaternary bg-transparent z-10 w-[147px] h-[48px]">Durée moyenne des sessions</p> */}
-      {/* <div className="absolute inset-0 bg-gradient-to-r from-primary/15 to-transparent z-[20] pointer-events-none rounded-[5px]"></div> */}
     </div>
   );
 };
