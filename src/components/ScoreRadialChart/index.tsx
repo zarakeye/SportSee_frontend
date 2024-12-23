@@ -26,7 +26,7 @@ const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, w
     )
   }
 
-  const InnerCircleDiameter = Math.min(width * 60 / 100 - 15);
+  const InnerCircleDiameter = Math.min(width * 60 / 100 - 25);
 
   return (
     <div className={`relative flex flex-col justify-center items-center w-[${width}px] h-[${height}px]`}>
@@ -41,8 +41,8 @@ const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, w
           outerRadius="100%"
           barSize={10}
           data={chartData}
-          startAngle={90}
-          endAngle={-270}
+          startAngle={210}
+          endAngle={-60}
           
         >
           <Legend
