@@ -89,7 +89,6 @@ const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, w
           de votre objectif
         </p>
       </div>
-      <h2 className='absolute top-[24px] left-[30px] textt-[15px] font-medium'>Score</h2>
     </div>
   )
 }

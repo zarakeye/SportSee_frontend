@@ -25,7 +25,6 @@ const useFetchUserData = (id: string): UseFetchUserDataReturn => {
 
     try {
       const user = await getUserData(Number(id));
-      console.log('userData:', user);
       setUserData(user.data);
     } catch (err) {
       const error = err as Error;

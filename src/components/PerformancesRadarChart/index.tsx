@@ -33,8 +33,6 @@ const PerformancesRadarChart: React.FC<PerformancesRadarChartProps> = ({ userId 
     });
   });
 
-  console.log('arrayData:', arrayData);
-
   const performanceTypesTranslations_Fr: { [key: string]: string } = {
     'cardio': 'Cardio',
     'energy': 'Énergie',
@@ -77,10 +75,7 @@ const PerformancesRadarChart: React.FC<PerformancesRadarChartProps> = ({ userId 
           stroke="#fff"
           fontSize="12px"
           tickLine={false}
-          // transform="translateY(10px)"
-          style={{
-            transform: 'translateY(10px)'
-          }}
+          transform="translateY(10px)"
         />
         <Radar
           name="Performance"

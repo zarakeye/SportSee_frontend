@@ -40,7 +40,6 @@ const useFetchUserPerformance = (id: string) => {
 
     try {
       const performance = await getUserPerformance(Number(id));
-      console.log('userPerformance:', performance);
       setUserPerformance(performance.data);
     } catch (err) {
       const error = err as Error;
