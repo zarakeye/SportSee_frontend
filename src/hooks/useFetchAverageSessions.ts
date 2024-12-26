@@ -26,14 +26,6 @@ const useFetchAverageSessions = (id: string) => {
 
     try {
       const averageSessions = await getUserAverageSessions(Number(id));
-
-      // if (!response.ok) {
-      //   throw new Error(`Http Error: ${response.status} - ${response.statusText}`);
-      // }
-
-      // const fetchData: UserAverageSessionsApi = await response.json();
-      // const sessions = fetchData.data;
-
       setUserAverageSessions(averageSessions.data);
     } catch (err) {
       const error = err as Error;

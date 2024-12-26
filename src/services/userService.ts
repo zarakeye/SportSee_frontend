@@ -3,13 +3,13 @@ import { config } from "./config";
 import type { UserData, ActivityData, AverageSessionsData, PerformanceData } from "./types";
 import { fetchData } from "./api";
 
-const delay = (ms: number): Promise<void> => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// const delay = (ms: number): Promise<void> => {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
 export const getUserData = async (id: number): Promise<UserData> => {
   if (config.USE_MOCK_DATA) {
-    await delay(1000);
+    // await delay(1000);
     const userData = mockUserData[id];
     if (!userData) {
       throw new Error(`Mock data not found for id ${id}`);
@@ -25,7 +25,7 @@ export const getUserData = async (id: number): Promise<UserData> => {
 
 export const getUserActivity = async (id: number): Promise<ActivityData> => {
   if (config.USE_MOCK_DATA) {
-    await delay(1000);
+    // await delay(1000);
     const userActivity = mockUserActivity[id];
     if (!userActivity) {
       throw new Error(`Mock data not found for id ${id}`);
@@ -41,7 +41,7 @@ export const getUserActivity = async (id: number): Promise<ActivityData> => {
 
 export const getUserAverageSessions = async (id: number): Promise<AverageSessionsData> => {
   if (config.USE_MOCK_DATA) {
-    await delay(1000);
+    // await delay(1000);
     const userAverageSessions = mockUserAverageSessions[id];
     if (!userAverageSessions) {
       throw new Error(`Mock data not found for id ${id}`);
@@ -57,7 +57,7 @@ export const getUserAverageSessions = async (id: number): Promise<AverageSession
 
 export const getUserPerformance = async (id: number): Promise<PerformanceData> => {
   if (config.USE_MOCK_DATA) {
-    await delay(1000);
+    // await delay(1000);
     const userPerformance = mockUserPerformance[id];
     if (!userPerformance) {
       throw new Error(`Mock data not found for id ${id}`);
