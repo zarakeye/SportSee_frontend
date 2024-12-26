@@ -9,7 +9,6 @@ import musculationLogo from "../../assets/musculationLogo.svg";
 import DailyActivityBarPlot from "../../components/DailyActivityBarPlot";
 import AverageSessionLineChart from "../../components/AverageSessionLineChart";
 import PerformancesRadarChart from "../../components/PerformancesRadarChart";
-// import ChartWrapper from "../../components/ChartWrapper/index.tsx";
 import ScoreRadialChart from "../../components/ScoreRadialChart/index.tsx";
 import InfoCard from "../../components/InfoCard/index.tsx";
 
