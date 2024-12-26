@@ -3,6 +3,15 @@ import { config } from "./config";
 import type { UserData, ActivityData, AverageSessionsData, PerformanceData } from "./types";
 import { fetchData } from "./api";
 
+/**
+ * Fetches user data by the provided user ID.
+ * If mock data is enabled via configuration, it returns the mock data.
+ * Otherwise, it fetches data from the API endpoint.
+ * 
+ * @param {number} id - The ID of the user whose data is being fetched.
+ * @returns {Promise<UserData>} A promise that resolves to the user data.
+ * @throws Will throw an error if mock data is enabled and no mock data is found for the given ID.
+ */
 export const getUserData = async (id: number): Promise<UserData> => {
   if (config.USE_MOCK_DATA) {
     const userData = mockUserData[id];
@@ -18,6 +27,15 @@ export const getUserData = async (id: number): Promise<UserData> => {
   return fetchData<UserData>(`/user/${id}`);
 };
 
+/**
+ * Fetches activity data for a user by their ID.
+ * If mock data is enabled via configuration, it returns the mock data.
+ * Otherwise, it fetches data from the API endpoint.
+ * 
+ * @param {number} id - The ID of the user whose activity data is being fetched.
+ * @returns {Promise<ActivityData>} A promise that resolves to the user's activity data.
+ * @throws Will throw an error if mock data is enabled and no mock data is found for the given ID.
+ */
 export const getUserActivity = async (id: number): Promise<ActivityData> => {
   if (config.USE_MOCK_DATA) {
     const userActivity = mockUserActivity[id];
@@ -33,6 +51,15 @@ export const getUserActivity = async (id: number): Promise<ActivityData> => {
   return fetchData<ActivityData>(`/user/${id}/activity`);
 };
 
+/**
+ * Fetches average session data for a user by their ID.
+ * If mock data is enabled via configuration, it returns the mock data.
+ * Otherwise, it fetches data from the API endpoint.
+ *
+ * @param {number} id - The ID of the user whose average session data is being fetched.
+ * @returns {Promise<AverageSessionsData>} A promise that resolves to the user's average session data.
+ * @throws Will throw an error if mock data is enabled and no mock data is found for the given ID.
+ */
 export const getUserAverageSessions = async (id: number): Promise<AverageSessionsData> => {
   if (config.USE_MOCK_DATA) {
     const userAverageSessions = mockUserAverageSessions[id];
@@ -48,6 +75,15 @@ export const getUserAverageSessions = async (id: number): Promise<AverageSession
   return fetchData<AverageSessionsData>(`/user/${id}/average-sessions`);
 };
 
+/**
+ * Fetches the performance data for a user by their ID.
+ * If mock data is enabled via configuration, it returns the mock data.
+ * Otherwise, it fetches data from the API endpoint.
+ *
+ * @param {number} id - The ID of the user whose performance data is being fetched.
+ * @returns {Promise<PerformanceData>} A promise that resolves to the user's performance data.
+ * @throws Will throw an error if mock data is enabled and no mock data is found for the given ID.
+ */
 export const getUserPerformance = async (id: number): Promise<PerformanceData> => {
   if (config.USE_MOCK_DATA) {
     const userPerformance = mockUserPerformance[id];

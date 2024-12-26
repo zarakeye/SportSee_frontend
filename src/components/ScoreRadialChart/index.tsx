@@ -8,6 +8,17 @@ interface ScoreRadialChartProps {
   height: number;
 }
 
+/**
+ * A ScoreRadialChart component that displays a user's score in a radial bar chart format.
+ * The chart is responsive and displays the score as a percentage of the user's daily goal.
+ * If no score is available, the component will display a message indicating that no score is available.
+ * @param {ScoreRadialChartProps} props - The properties for the component.
+ * @prop {number} props.todayScore - The user's score for today.
+ * @prop {number} props.score - The user's overall score.
+ * @prop {number} props.width - The width of the component.
+ * @prop {number} props.height - The height of the component.
+ * @returns {JSX.Element} A radial bar chart wrapped in a responsive container.
+ */
 const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, width, height}) => {
   const scoreValue = score !== undefined ? score * 100 : todayScore !== undefined ? todayScore * 100 : 0;
 
@@ -102,14 +113,6 @@ const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, w
           />
         </RadialBarChart>
       </ResponsiveContainer>
-
-      {/* <div style={{width: InnerCircleDiameter, height: InnerCircleDiameter}} className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FFF] rounded-full flex justify-center items-center`}>
-        <p className="text-[16px] text-tertiary font-medium w-[95px] text-center">
-          <span className='text-secondary text-[26px] text-center font-bold'>{Math.round(scoreValue)}%</span>
-          <br/>
-          de votre objectif
-        </p>
-      </div> */}
     </div>
   )
 }

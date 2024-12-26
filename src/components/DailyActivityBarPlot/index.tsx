@@ -24,6 +24,17 @@ interface CustomLegendProps {
 }
 
 
+/**
+ * A custom tooltip component that displays user activity data.
+ * The tooltip shows the weight in kilograms and calories burned.
+ * It is displayed when the user hovers over a relevant data point in the bar chart.
+ * 
+ * @param {Object} props The properties for the component.
+ * @param {{value: string}[]} props.payload The data associated with the currently hovered over bar.
+ * If the payload is null or empty, the tooltip will not be displayed.
+ * 
+ * @returns {React.ReactElement | null} The custom tooltip element when payload is available, otherwise null.
+ */
 const CustomTooltip: React.FC<CustomTooltipProps> = ({ payload }) => {
   if (payload && payload.length) {
     return (

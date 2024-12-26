@@ -13,6 +13,17 @@ interface PerformancesRadarChartProps {
   userId: string;
 }
 
+/**
+ * Displays a radar chart representing a user's performance metrics.
+ * The chart is responsive and visualizes various performance types such as cardio,
+ * energy, endurance, strength, speed, and intensity in a radar chart format.
+ *
+ * @param {PerformancesRadarChartProps} props - The properties for the component.
+ * @prop {string} props.userId - The ID of the user whose performance data is to be displayed.
+ * 
+ * @returns {JSX.Element} A radar chart wrapped in a responsive container.
+ * Displays a loading indicator when data is being fetched and an error message if there is any error.
+ */
 const PerformancesRadarChart: React.FC<PerformancesRadarChartProps> = ({ userId }) => {
   const { userPerformance, loading, error } = useFetchUserPerformance(userId);
 

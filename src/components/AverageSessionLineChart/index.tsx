@@ -39,6 +39,20 @@ interface CustomTickProps {
   visibleTickCount?: number;
 }
 
+/**
+ * Displays a line chart of a user's average session lengths over the days of the week.
+ * The chart is responsive and will resize based on the width and height provided.
+ * The chart is also interactive, with a tooltip that displays the average session length
+ * for the day hovered over. A legend is also displayed that shows the average session length
+ * for the week.
+ *
+ * @param {{userId: string, width: number, height: number, backgroundColor: string}} props
+ * The properties for the component.
+ * @prop {string} userId The id of the user to display the chart for.
+ * @prop {number} width The width of the chart.
+ * @prop {number} height The height of the chart.
+ * @prop {string} backgroundColor The background color of the chart.
+ */
 const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, height, backgroundColor}) => {
   const { userAverageSessions, loading, error } = useFetchAverageSessions(userId);
   const [activeDay, setActiveDay] = useState<number | null>(null);
@@ -54,6 +68,16 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
   const {sessions} = userAverageSessions || {};
 
 
+  /**
+   * A custom tooltip component that displays the average session length for the day hovered over.
+   * The tooltip is only displayed when the user hovers over a bar in the line chart.
+   * The tooltip displays the average session length in minutes with a precision of one decimal place.
+   * @param {{ active: boolean, payload: {value: number}[] | null }} props The properties for the component.
+   * @prop {boolean} active Whether the tooltip is currently active.
+   * @prop {{value: number}[] | null} payload The data associated with the currently hovered over bar.
+   * If the payload is null, the tooltip will not be displayed.
+   * @returns {React.ReactElement} The custom tooltip element.
+   */
   const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
     if (active && payload && payload.length) {
       
@@ -78,6 +102,11 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
     "D"
   ];
 
+  /**
+   * Set the active day in the state when the user moves the mouse over a line chart bar.
+   * The active day is set to the day of the week that corresponds to the bar's day.
+   * @param {{ activePayload?: { payload: { day: number } } }} e The line chart mouse move event.
+   */
   const handleMouseMove = (e: CategoricalChartState) => {
     if (e && e.activePayload) {
       const { day } = e.activePayload[0].payload;
@@ -85,10 +114,25 @@ const AverageSessionLineChart: React.FC<AverageSessionProps> = ({userId, width, 
     }
   };
 
+  /**
+   * Set the active day to null when the user moves the mouse out of the line chart.
+   * This is used to reset the active day when the user is not hovering over the chart.
+   */
   const handleMouseLeave = () => {
     setActiveDay(null);
   };
 
+/**
+ * A custom tick component for rendering day labels on the X-axis of the line chart.
+ * Calculates the horizontal position for uniform spacing between labels.
+ *
+ * @param {CustomTickProps} props The properties for the custom tick component.
+ * @prop {number} props.y The y-coordinate for positioning the tick label.
+ * @prop {Object} props.payload The payload containing data for the tick, including the value.
+ * @prop {number} props.payload.value The numerical value for determining the label.
+ * @prop {number} [props.index] The index of the tick, used to calculate horizontal spacing.
+ * @returns {React.ReactElement} The SVG element for the custom tick label.
+ */
   const CustomTick: React.FC<CustomTickProps> = (props: CustomTickProps) => {
     const { y, payload, index } = props;
     const value = payload.value;

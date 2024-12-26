@@ -34,6 +34,15 @@ const useFetchUserPerformance = (id: string) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
+/**
+ * Fetches the performance data for a user by their ID and updates the state.
+ * Sets loading to true and clears any previous errors before attempting to fetch the data.
+ * If successful, updates the userPerformance state with the fetched data.
+ * If an error occurs, logs the error and sets an error message in the state.
+ * Finally, sets loading to false once the operation is complete.
+ *
+ * @param {string} id - The ID of the user whose performance data is being fetched.
+ */
   const fetchUserPerformance = async(id: string) => {
     setLoading(true);
     setError(null);

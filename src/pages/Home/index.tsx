@@ -12,6 +12,14 @@ import PerformancesRadarChart from "../../components/PerformancesRadarChart";
 import ScoreRadialChart from "../../components/ScoreRadialChart/index.tsx";
 import InfoCard from "../../components/InfoCard/index.tsx";
 
+/**
+ * The Home component is the main page of the application that displays various user activity data.
+ * It fetches and displays the user's information, daily activity, average session length, performance metrics,
+ * and daily score. The component also includes navigation links to different activity categories.
+ *
+ * @returns {JSX.Element} A React component that renders the homepage layout including an aside for activity
+ * links and a main section with charts and user data.
+ */
 const Home: React.FC = () => {
   const {userId} = useParams();
   const fetchedUserData = useFetchUserData(userId as string);

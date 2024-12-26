@@ -9,6 +9,13 @@ interface InfoCardProps {
   value: number
 }
 
+/**
+ * A component to display the value of a specific type of data about the user's activity.
+ *
+ * @param {string} dataType The type of data to display, one of 'calorieCount', 'proteinCount', 'carbohydrateCount', or 'lipidCount'.
+ * @param {number} value The value of the data type to display.
+ * @returns {React.ReactElement} A div element containing the data type and value, with a background color and a circular icon representing the data type.
+ */
 const InfoCard: React.FC<InfoCardProps> = ({dataType, value}) => {
   return (
     <div className='flex justify-start items-center bg-[#FBFBFB] h-[124px] p-[32px] rounded-[5px]'>
