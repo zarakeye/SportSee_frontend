@@ -51,6 +51,7 @@ const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, w
             content={() => {
               return (
                 <div style={{
+                  position: 'relative',
                   color: '#000',
                   fontSize: '15px',
                   fontWeight: 500,
@@ -60,7 +61,27 @@ const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, w
                   lineHeightStep: '24px',
                   transform: 'translate(30px, 24px)',
                 }}>
-                  Score
+                  <p>Score</p>
+                  <p style={{
+                    position: 'absolute',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: '#FFF',
+                    width: InnerCircleDiameter,
+                    height: InnerCircleDiameter,
+                    top: '36px',
+                    left: '30px',
+                    lineHeight: '26px',
+                    borderRadius: '50%',
+                    paddingLeft: '10px',
+                    paddingRight: '10px',
+                  }}
+                  >
+                    <p style={{color: 'black', fontSize: '26px', fontWeight: 700}}>{scoreValue}%</p>
+                    <p style={{color: '#74798C', fontSize: '16px', fontWeight: 500, textAlign: 'center'}}> de votre objectif</p>
+                  </p>
                 </div>
               );
             }}
@@ -82,13 +103,13 @@ const ScoreRadialChart: React.FC<ScoreRadialChartProps> = ({score, todayScore, w
         </RadialBarChart>
       </ResponsiveContainer>
 
-      <div style={{width: InnerCircleDiameter, height: InnerCircleDiameter}} className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FFF] rounded-full flex justify-center items-center`}>
+      {/* <div style={{width: InnerCircleDiameter, height: InnerCircleDiameter}} className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FFF] rounded-full flex justify-center items-center`}>
         <p className="text-[16px] text-tertiary font-medium w-[95px] text-center">
           <span className='text-secondary text-[26px] text-center font-bold'>{Math.round(scoreValue)}%</span>
           <br/>
           de votre objectif
         </p>
-      </div>
+      </div> */}
     </div>
   )
 }
