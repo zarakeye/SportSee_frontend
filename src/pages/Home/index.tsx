@@ -40,7 +40,7 @@ const Home: React.FC = () => {
         </header>
 
         <div className="flex justify-between gap-[20px]">
-          <div className="flex flex-col w-[835px] gap-[20px]">
+          <div className="flex flex-col w-[835px]">
             <div className="relative bg-[#FBFBFB] w-full h-[320px] mb-[28px] rounded-[5px]">
               <DailyActivityBarPlot userId={userId as string}  />
             </div>
