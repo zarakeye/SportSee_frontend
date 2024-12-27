@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserAverageSessions } from '../services/userService';
+import { getUserAverageSessions } from '../services/api.service';
 
 export interface UserAverageSessions {
   id: number;

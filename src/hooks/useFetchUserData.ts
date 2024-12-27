@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { User } from "../services/types";
-import {getUserData} from '../services/userService';
+import { User } from "../services/api.types";
+import {getUserData} from '../services/api.service';
 
 export interface UserApi {
   data: User;
@@ -43,6 +43,8 @@ const useFetchUserData = (id: string): UseFetchUserDataReturn => {
 
     try {
       const user = await getUserData(Number(id));
+      
+      console.log(`useFetchUserData: user: ${user}`);
       setUserData(user.data);
     } catch (err) {
       const error = err as Error;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserActivity } from "../services/userService";
+import { getUserActivity } from "../services/api.service";
 
 export interface UserActivity {
   id: number;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserPerformance } from '../services/userService';
+import { getUserPerformance } from '../services/api.service';
 
 export interface UserPerformance {
   id: number;
