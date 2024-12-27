@@ -4,13 +4,18 @@ import type { UserData, ActivityData, AverageSessionsData, PerformanceData } fro
 const URL_BACKEND = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
 
+
 /**
- * Fetches data from the API endpoint and fallbacks to mock data if request fails or times out.
- *
+ * Fetches data from the API or mock server based on the provided endpoint.
+ * Attempts to fetch data from the API using the given endpoint. If the request fails and
+ * mock data is enabled, it falls back to fetching data from the mock server.
+ * 
+ * @template T The expected type of the data returned by the API.
  * @param {string} endpoint - The API endpoint to fetch data from.
- * @returns {Promise<T>} A promise that resolves to the fetched data.
- * @template T
+ * @returns {Promise<T>} A promise that resolves to the data of type T.
+ * @throws Will throw an error if both the API and mock requests fail, or if the endpoint is invalid.
  */
+
 export const fetchData = async <T>(endpoint: string): Promise<T> => {
   const splitedEndpoint = endpoint.trim().split('/');
   const userId = splitedEndpoint[2];
