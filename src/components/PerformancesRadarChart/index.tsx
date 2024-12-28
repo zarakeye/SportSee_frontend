@@ -1,12 +1,11 @@
 import React from "react";
 import useFetchUserPerformance from "../../hooks/useFetchUserPerformance";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
-
-type Performance = 'cardio' | 'energy' | 'endurance' | 'strength' | 'speed' | 'intensity';
+import { PerformanceType } from "../../services/api.types";
 
 interface UserPerformancesReturn {
   value: number;
-  kind: Performance;
+  kind: PerformanceType;
 }
 
 interface PerformancesRadarChartProps {

@@ -1,7 +1,7 @@
 import { API_CONFIG } from "./api.config";
 import type { UserData, ActivityData, AverageSessionsData, PerformanceData } from "./api.types";
 
-const URL_BACKEND = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const URL_BACKEND = import.meta.env.VITE_API_URL;
 const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
 
 
@@ -15,7 +15,6 @@ const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
  * @returns {Promise<T>} A promise that resolves to the data of type T.
  * @throws Will throw an error if both the API and mock requests fail, or if the endpoint is invalid.
  */
-
 export const fetchData = async <T>(endpoint: string): Promise<T> => {
   const splitedEndpoint = endpoint.trim().split('/');
   const userId = splitedEndpoint[2];
