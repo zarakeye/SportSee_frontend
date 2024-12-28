@@ -1,54 +1,51 @@
-<<<<<<< HEAD
 # SportSee_frontend
-=======
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repo contains all the source code to run the sports analytics dashboard of a SportSee user.
 
-Currently, two official plugins are available:
+## 1. Tech stack: React + TypeScript + Vite + TailwindCSS + ReCharts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is implemented with React and TypeScript, using Vite as the bundler.
+TailwindCSS is used for styling.
+ReCharts is used for the charting components.
 
-## Expanding the ESLint configuration
+## 2. Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To install the dependencies, run the following command:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+yarn install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 3. Usage
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+To start the development server, run the following command:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+yarn dev
 ```
->>>>>>> 5d5c5a0 (Daily Activity BarPlot added)
+
+The project will be available at [http://localhost:5173](http://localhost:5173) by default in the browser.
+
+To build the production version, run the following command:
+
+```bash
+yarn build
+```
+
+then,  run :
+
+```bash
+yarn preview
+```
+
+## 4. Endpoints
+
+This project has for now only one endpoint: `http://localhost:5173/${userId}` which will redirect to the profile page of the user.
+
+## 5. Mocks
+
+This project includes mocks in the public folder for the endpoints. A system of Fallback is implemented to make the project work without an API.
+
+## 6. Deployment
+
+This project is deployed on Vercel. The deployment is available at [SportSee Frontend Deployment](https://sportsee-frontend.vercel.app/).
