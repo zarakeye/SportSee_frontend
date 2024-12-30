@@ -1,4 +1,3 @@
-import { API_CONFIG } from "./api.config";
 import type { UserData, ActivityData, AverageSessionsData, PerformanceData } from "./api.types";
 
 const URL_BACKEND = import.meta.env.VITE_API_URL;
@@ -37,7 +36,7 @@ export const fetchData = async <T>(endpoint: string): Promise<T> => {
     console.error(`Error while connecting to the API(${URL_BACKEND}${endpoint}): ${error.message}`);
     if (USE_MOCK_DATA) {
       console.log(`${err}:Fallback to mock data for ${endpointName} of user ${userId}`);
-      const mockResponse = await fetch(`${API_CONFIG.mockBaseUrl}/${userId}${endpointName}.json`);
+      const mockResponse = await fetch(`/mocks/${userId}${endpointName}.json`);
       if (!mockResponse.ok) {
         throw new Error(`Mock request failed for ${endpointName} of user ${userId} with status: ${mockResponse.status} - ${mockResponse.statusText}`);
       }
